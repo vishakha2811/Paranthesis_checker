@@ -1,0 +1,111 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+class stack1
+{
+    char a[25],ele;
+    int top,num=25;
+    public:
+    stack1()
+    {
+        top=-1;
+    }
+    void push(char ele);
+    char pop();
+    void paranthesis_checker(string);
+};
+void stack1::push(char ele)
+{
+    if(top==(num-1))
+    {
+        cout<<"Overflow";
+    }
+    else
+    {
+        top=top+1;
+        a[top]=ele;
+    }
+}
+char stack1::pop()
+{
+    if(top==-1)
+    {
+        cout<<"Underflow";
+    }
+    else
+    {
+        ele=a[top];
+        top--;
+        return ele;
+    }
+}
+void  stack1::paranthesis_checker(string s)
+{  int i=0,flag=0,len;
+char br;
+len=s.length();
+for(i=0;i<len;i++)
+    {
+        if(s[i]=='('||s[i]=='{'||s[i]=='[')
+        {
+            push(s[i]);
+        }
+        if(s[i]==')'||s[i]=='}'||s[i]==']')
+         {
+              br=pop();
+               if(br=='(')
+                  {
+                     if(s[i]=='}'||s[i]==']')
+                     {
+                         flag++;
+                         break;
+                     }
+                     else{
+                     continue;}
+                  }
+                else  if(br=='{')
+                  {
+                     if(s[i]==')'||s[i]==']')
+                     {
+                        flag++;;
+                         break;
+                     }
+                     else
+                        {  flag=0;
+
+                     continue;
+                     }
+                   }
+               else  if(br=='[')
+                  {
+                     if(s[i]=='}'||s[i]==')')
+                     {
+                         flag++;
+                         break;
+                     }
+                     else
+                    { flag=0;
+
+                     continue;
+                     }
+
+                  }
+             }
+         }
+    if(flag>0)
+    {
+        cout<<"unbalanced";
+    }
+    else
+    {
+        cout<<"balanced";
+    }
+}
+int main()
+{
+stack1 r;
+string str;
+cin>>str;
+r.paranthesis_checker(str);
+return 0;
+}
+
